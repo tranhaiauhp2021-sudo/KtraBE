@@ -1,0 +1,54 @@
+﻿@model KtraBE.Models.ShopHomeVM
+@{
+    ViewBag.Title = "Trang chủ cửa hàng";
+}
+<section class="shop-hero">
+    <div class="shop-hero-copy">
+        <span class="shop-tag">✦ MUA SẮM THÔNG MINH</span>
+        <h1>Chọn điều hay.<br /><em>Sống mỗi ngày tốt hơn.</em></h1>
+        <p>Khám phá sách, đồ dùng học tập và phụ kiện nhỏ xinh cho hành trình sáng tạo của bạn.</p>
+        <a class="shop-btn shop-btn-dark" href="#sanpham">Khám phá sản phẩm <span>↗</span></a>
+        <div class="shop-hero-highlights"><span>✓ Giá rõ ràng</span><span>✓ Đặt hàng dễ dàng</span><span>✓ Giao hàng tận nơi</span></div>
+    </div>
+    <div class="shop-hero-art">
+        <img class="shop-hero-photo" alt="Ảnh chụp sách và đồ dùng học tập" src="@Url.Content(KtraBE.Models.RealProductPhoto.GetUrl(1))" />
+        <div class="shop-hero-caption">EVERYDAY ESSENTIALS</div>
+    </div>
+</section>
+<section class="shop-features"><div>📦 <strong>Giao hàng nhanh</strong><small>Tiện lợi và linh hoạt</small></div><div>✨ <strong>Lựa chọn chất lượng</strong><small>Đồ dùng được yêu thích</small></div><div>💬 <strong>Hỗ trợ nhiệt tình</strong><small>Mua sắm đơn giản</small></div></section>
+<section id="sanpham" class="shop-products-section">
+    <div class="shop-section-top"><div><span class="shop-tag">BỘ SƯU TẬP</span><h2>Sản phẩm dành cho bạn</h2></div><p>Tìm thấy @Model.TotalCount sản phẩm</p></div>
+    @using (Html.BeginForm("Index","Home",FormMethod.Get,new { @class="shop-filter" }))
+    {
+        <input type="search" name="keyword" value="@Model.Keyword" placeholder="Tìm sách, bút, phụ kiện..." />
+        @Html.DropDownList("categoryId", new SelectList(Model.Categories, "CategoryID", "CategoryName", Model.CategoryId), "Tất cả danh mục")<button type="submit" class="shop-btn shop-btn-dark">Tìm kiếm</button>
+        <a class="shop-reset" href="@Url.Action("Index","Home")">Làm mới</a>
+    }
+    @if (Model.Products.Count == 0)
+    { <div class="shop-empty">Không tìm thấy sản phẩm phù hợp.</div> }
+    else
+    {
+        <div class="shop-products">
+        @foreach (var p in Model.Products)
+        {
+            <article class="shop-product-card">
+                <a class="shop-product-image" href="@Url.Action("Details","Home",new { id=p.ProductID })">
+                    <img alt="Ảnh chụp minh họa @p.ProductName" loading="lazy"
+                         src="@Url.Content(KtraBE.Models.RealProductPhoto.GetUrl(p.ProductID, p.ProductImage))" />
+                </a>
+                <div class="shop-card-body"><small>@(p.Category == null ? "Sản phẩm" : p.Category.CategoryName)</small>
+                    <a class="shop-card-title" href="@Url.Action("Details","Home",new { id=p.ProductID })">@p.ProductName</a>
+                    <div class="shop-card-bottom"><strong>@p.ProductPrice.ToString("N0") ₫</strong>
+                        @using (Html.BeginForm("Add","Cart",FormMethod.Post))
+                        { @Html.AntiForgeryToken()<input type="hidden" name="productId" value="@p.ProductID"/><button class="shop-round-add" title="Thêm vào giỏ" type="submit">＋</button> }
+                    </div>
+                </div>
+            </article>
+        }
+        </div>
+        <div class="shop-pagination">
+            @for (int page=1;page<=Model.PageCount;page++)
+            { <a class="@(page==Model.Page ? "on" : "")" href="@Url.Action("Index","Home",new { page=page, keyword=Model.Keyword, categoryId=Model.CategoryId })">@page</a> }
+        </div>
+    }
+</section>

@@ -1,0 +1,14 @@
+﻿@model List<KtraBE.Models.Order>
+@{ ViewBag.Title = "Đơn hàng của tôi"; }
+<div class="shop-page-title"><span class="shop-tag">MY ORDERS</span><h1>Đơn hàng của tôi</h1><p>Tra cứu những đơn hàng bạn đã đặt</p></div>
+@if(Model.Count == 0)
+{
+    <div class="shop-empty"><h3>Bạn chưa có đơn hàng nào</h3><p>Hãy khám phá cửa hàng và đặt đơn đầu tiên nhé.</p><a class="shop-btn shop-btn-dark" href="@Url.Action("Index","Home")">Xem sản phẩm</a></div>
+}
+else
+{
+    <div class="shop-history-table"><table><thead><tr><th>Mã đơn</th><th>Ngày đặt</th><th>Tổng tiền</th><th>Thanh toán</th><th>Trạng thái</th><th>Chi tiết</th></tr></thead><tbody>
+    @foreach(var o in Model)
+    { <tr><td><b>#@o.OrderID</b></td><td>@o.OrderDate.ToString("dd/MM/yyyy")</td><td><b>@o.TotalAmount.ToString("N0") ₫</b></td><td>@o.PaymentStatus</td><td>@o.OrderStatus</td><td><a href="@Url.Action("OrderSuccess","CustomerOrder",new {id=o.OrderID})">Xem đơn →</a></td></tr> }
+    </tbody></table></div>
+}

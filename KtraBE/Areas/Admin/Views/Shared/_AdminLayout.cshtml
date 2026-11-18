@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title · Hệ thống quản lý đơn hàng</title>
+    <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="@Url.Action("Index", "Orders", new { area = "Admin" })">FASTOR<span>.</span></a>
+            <nav class="top-links" aria-label="Thanh điều hướng">
+                <a class="active" href="@Url.Action("Index", "Orders", new { area = "Admin" })">Quản lý đơn hàng</a>
+                <a href="@Url.Action("Index", "Home", new { area = "" })">Xem cửa hàng ↗</a><span class="nav-chip">Bài kiểm tra Backend</span>
+            </nav>
+            <div class="nav-user">
+                <span class="username">Admin: @User.Identity.Name</span>
+                @using (Html.BeginForm("Logout", "Account", new { area = "" }, FormMethod.Post, new { @class = "inline-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button class="signout" type="submit">Đăng xuất</button>
+                }
+            </div>
+        </div>
+    </header>
+
+    <main class="page-container">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert-success" role="status">@TempData["Success"]</div>
+        }
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <span>© @DateTime.Now.Year · FASTOR Store · Quản lý đơn hàng</span>
+        <span>Phần Admin · Quản lý đơn hàng</span>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+﻿@model KtraBE.Models.CustomerRegisterVM
+@{ ViewBag.Title = "Đăng ký"; }
+<div class="shop-form-wrap"><span class="shop-tag">TẠO TÀI KHOẢN</span><h1>Đăng ký khách hàng</h1><p>Đăng ký để đặt hàng và xem lại lịch sử mua sắm.</p>
+@using(Html.BeginForm("Register","CustomerAccount",FormMethod.Post,new { @class="shop-form" }))
+{
+    @Html.AntiForgeryToken() @Html.ValidationSummary(true,"",new { @class="shop-errors" })
+    <label>Họ và tên @Html.TextBoxFor(m=>m.CustomerName,new { placeholder="Nguyễn Văn A" }) @Html.ValidationMessageFor(m=>m.CustomerName)</label>
+    <label>Tên đăng nhập @Html.TextBoxFor(m=>m.Username) @Html.ValidationMessageFor(m=>m.Username)</label>
+    <label>Số điện thoại @Html.TextBoxFor(m=>m.CustomerPhone) @Html.ValidationMessageFor(m=>m.CustomerPhone)</label>
+    <label>Email @Html.TextBoxFor(m=>m.CustomerEmail,new { type="email" }) @Html.ValidationMessageFor(m=>m.CustomerEmail)</label>
+    <label>Địa chỉ @Html.TextBoxFor(m=>m.CustomerAddress) @Html.ValidationMessageFor(m=>m.CustomerAddress)</label>
+    <label>Mật khẩu @Html.PasswordFor(m=>m.Password) @Html.ValidationMessageFor(m=>m.Password)</label>
+    <label>Xác nhận mật khẩu @Html.PasswordFor(m=>m.ConfirmPassword) @Html.ValidationMessageFor(m=>m.ConfirmPassword)</label>
+    <button type="submit" class="shop-btn shop-btn-dark">Tạo tài khoản</button>
+}
+<p>Đã có tài khoản? <a href="@Url.Action("Login")">Đăng nhập</a></p></div>

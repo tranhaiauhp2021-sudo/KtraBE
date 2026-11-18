@@ -1,0 +1,16 @@
+﻿8 ẢNH CHỤP THẬT (không phải ảnh sinh bằng AI)
+Nguồn: Unsplash, giấy phép sử dụng ảnh miễn phí https://unsplash.com/license
+Ảnh chỉ mang tính minh họa loại sản phẩm, KHÔNG phải ảnh chính xác của mặt hàng đang bán.
+
+1. Rahul Mishra — https://unsplash.com/photos/a-stack-of-books-sitting-on-top-of-a-desk-IAiWFvNdiM4
+2. Beau Carpenter — https://unsplash.com/photos/a-stack-of-books-sitting-on-top-of-each-other-pTaQDMpOZn0
+3. Claudia Wolff — https://unsplash.com/photos/pile-of-assorted-color-books-MiJTU6lqksg
+4. Fiona Murray-deGraaff — https://unsplash.com/photos/a-notebook-pen-and-paper-clips-on-a-white-surface-1YgVQL2vrQk
+5. Felix Metz — https://unsplash.com/photos/a-close-up-of-a-pen-and-a-piece-of-paper--zsHKFurLdA
+6. Omar Al-Ghosson — https://unsplash.com/photos/a-table-with-a-laptop-and-a-phone-on-it-aQAXsxv-Xe8
+7. quokkabottles — https://unsplash.com/photos/a-person-holding-a-water-bottle-in-their-hand-Jl3YZSHYKzc
+8. Ngo Ngoc Khai Huyen — https://unsplash.com/photos/a-book-with-stickers-on-it-next-to-a-plant-TgI7AMbAjXc
+
+Website sẽ lấy ảnh qua URL Unsplash nếu chưa tải về máy. Phải có Internet khi xem trực tuyến.
+Muốn trình bày offline: nhấp đúp TAI_ANH_VE_MAY.cmd tại gốc project; script tải 8 ảnh về KtraBE/Content/products/real-N.jpg.
+Sau khi tải, nhớ nén thư mục đã tải để nộp phiên bản có ảnh offline.

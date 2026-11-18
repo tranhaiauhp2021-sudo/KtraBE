@@ -1,0 +1,19 @@
+﻿@model KtraBE.Models.Order
+@{
+    ViewBag.Title = "Chi tiết đơn hàng #" + Model.OrderID;
+}
+<div class="page-heading">
+    <div>
+        <div class="eyebrow">QUẢN TRỊ / ĐƠN HÀNG / #@Model.OrderID</div>
+        <h1>CHI TIẾT ĐƠN HÀNG</h1>
+        <p class="muted">Thông tin mua hàng và hóa đơn của khách.</p>
+    </div>
+    <a class="btn btn-light" href="@Url.Action("Index", "Orders", new { area = "Admin" })">← Danh sách đơn hàng</a>
+</div>
+
+@Html.Partial("_OrderInvoice", Model)
+
+<div class="detail-actions">
+    <a href="@Url.Action("UpdateStatus", "Orders", new { area = "Admin", id = Model.OrderID })" class="btn btn-primary">Cập nhật trạng thái</a>
+    <a href="@Url.Action("Index", "Orders", new { area = "Admin" })" class="btn btn-light">Quay lại danh sách</a>
+</div>

@@ -1,0 +1,22 @@
+FASTOR Store + Admin – ASP.NET MVC5 / EF6 / SQL Server
+
+MO TRONG VISUAL STUDIO 2026
+1. Giai nen ZIP ra thu muc MOI (khong ghi de project cu dang chay).
+2. Mo KtraBE.sln, Restore NuGet neu duoc hoi, sau do nhan F5.
+3. Truy cap https://localhost:PORT/ (trang ban hang; port theo IIS Express cua ban).
+4. Admin: https://localhost:PORT/Account/Login (admin / Admin@2026), sau do /Admin/Orders.
+5. Customer: vao /CustomerAccount/Register de tao TAI KHOAN MOI, dung tai khoan nay de dang nhap, them vao gio, dat hang (tien mat / chuyen khoan demo), xem lich su mua.
+
+DATABASE
+- Dung chung database MyStore_BE_Ktra vua tao. Khong can chay lai SQL neu 31 don hang mau da co.
+- File Web.config: Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MyStore_BE_Ktra.
+- Tai khoan khach hang mau khach01...khach08 co Password=NOLOGIN chi de gan du lieu mau; hay tao tai khoan khach hang moi de thu nghiem.
+
+KHA NANG
+- Admin: danh sach, tim kiem, loc, phan trang 15 don/trang, xem hoa don, cap nhat trang thai.
+- Customer: danh sach san pham theo danh muc, tim kiem, chi tiet san pham, gio hang Session, dang ky/nhap, dat hang ghi vao SQL, lich su mua.
+- Thanh toan chi mo phong, khong co PayPal / cong thanh toan that.
+
+LUU Y
+- Day la ma nguon de mo thu va chay tren Windows; chua chay end-to-end IIS Express tren may cua ban duoc.
+- Neu mat trang trong: thu https://localhost:PORT/Home/Index.

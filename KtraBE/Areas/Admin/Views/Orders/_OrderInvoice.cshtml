@@ -1,0 +1,63 @@
+﻿@using System.Linq
+@model KtraBE.Models.Order
+<div class="invoice">
+    <div class="invoice-header">
+        <div>
+            <div class="eyebrow">HÓA ĐƠN BÁN HÀNG</div>
+            <h2>Đơn hàng #@Model.OrderID</h2>
+            <span class="muted">Đặt ngày @Model.OrderDate.ToString("dd/MM/yyyy")</span>
+        </div>
+        <div class="invoice-mark">FASTOR<span>.</span></div>
+    </div>
+
+    <div class="invoice-two-col">
+        <div>
+            <h3>THÔNG TIN KHÁCH HÀNG</h3>
+            <dl class="info-list">
+                <dt>Họ và tên</dt><dd>@Model.Customer.CustomerName</dd>
+                <dt>Số điện thoại</dt><dd>@Model.Customer.CustomerPhone</dd>
+                <dt>Email</dt><dd>@(String.IsNullOrWhiteSpace(Model.Customer.CustomerEmail) ? "—" : Model.Customer.CustomerEmail)</dd>
+                <dt>Địa chỉ giao hàng</dt><dd>@Model.AddressDelivery</dd>
+            </dl>
+        </div>
+        <div>
+            <h3>THÔNG TIN ĐƠN HÀNG</h3>
+            <dl class="info-list">
+                <dt>Mã đơn</dt><dd><strong>#@Model.OrderID</strong></dd>
+                <dt>Ngày đặt hàng</dt><dd>@Model.OrderDate.ToString("dd/MM/yyyy")</dd>
+                <dt>Thanh toán</dt><dd>@Model.PaymentMethod</dd>
+                <dt>Trạng thái thanh toán</dt><dd><span class="status @(Model.PaymentStatus == "Đã thanh toán" ? "paid" : "pending")">@Model.PaymentStatus</span></dd>
+                <dt>Giao hàng</dt><dd>@Model.DeliveryMethod</dd>
+                <dt>Trạng thái đơn hàng</dt><dd>@Model.OrderStatus</dd>
+            </dl>
+        </div>
+    </div>
+
+    <h3 class="invoice-items-title">SẢN PHẨM TRONG ĐƠN HÀNG</h3>
+    <div class="table-scroll">
+        <table class="invoice-table">
+            <thead><tr><th>Sản phẩm</th><th class="text-right">Số lượng</th><th class="text-right">Đơn giá</th><th class="text-right">Thành tiền</th></tr></thead>
+            <tbody>
+            @foreach (var item in Model.OrderDetails.OrderBy(x => x.ID))
+            {
+                <tr>
+                    <td>
+                        <div class="product-cell">
+                            <div class="product-picture">📦</div>
+                            <div><strong>@item.Product.ProductName</strong><small>Mã hàng: #@item.ProductID</small></div>
+                        </div>
+                    </td>
+                    <td class="text-right">@item.Quantity</td>
+                    <td class="text-right">@String.Format("{0:N0} ₫", item.UnitPrice)</td>
+                    <td class="text-right strong">@String.Format("{0:N0} ₫", item.Quantity * item.UnitPrice)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="invoice-total">
+        <span>TỔNG GIÁ TRỊ ĐƠN HÀNG</span>
+        <strong>@String.Format("{0:N0} ₫", Model.TotalAmount)</strong>
+    </div>
+    <p class="invoice-footer">Hóa đơn được lưu trong hệ thống quản lý FASTOR. Trang này hiển thị thông tin đơn hàng và sản phẩm đã đặt.</p>
+</div>

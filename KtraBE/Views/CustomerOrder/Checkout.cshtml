@@ -1,0 +1,17 @@
+﻿@model KtraBE.Models.CheckoutVM
+@{ ViewBag.Title = "Thanh toán"; }
+<div class="shop-page-title"><span class="shop-tag">CHECKOUT</span><h1>Xác nhận đặt hàng</h1><p>Kiểm tra thông tin trước khi gửi đơn hàng</p></div>
+<div class="shop-checkout-grid"><div class="shop-form-wrap shop-form-inline">
+@using(Html.BeginForm("Checkout","CustomerOrder",FormMethod.Post,new { @class="shop-form" }))
+{
+    @Html.AntiForgeryToken() @Html.ValidationSummary(true,"",new { @class="shop-errors" })
+    <label>Địa chỉ giao hàng @Html.TextAreaFor(m=>m.AddressDelivery,new { rows="3" }) @Html.ValidationMessageFor(m=>m.AddressDelivery)</label>
+    <label>Hình thức giao hàng @Html.DropDownListFor(m=>m.DeliveryMethod,new SelectList(new [] { "Giao tiêu chuẩn","Giao nhanh" })) @Html.ValidationMessageFor(m=>m.DeliveryMethod)</label>
+    <label>Hình thức thanh toán @Html.DropDownListFor(m=>m.PaymentMethod,new SelectList(new [] { "Tiền mặt","Chuyển khoản" })) @Html.ValidationMessageFor(m=>m.PaymentMethod)</label>
+    <p class="shop-small-note">Thanh toán demo: thu tiền khi nhận hàng hoặc chuyển khoản thủ công. Chưa tích hợp cổng thanh toán trực tuyến.</p>
+    <button type="submit" class="shop-btn shop-btn-dark">Đặt hàng ngay</button>
+}
+</div><aside class="shop-summary"><h3>Đơn hàng của bạn</h3>
+@foreach (var item in Model.Cart.Items)
+{ <div><span>@item.ProductName × @item.Quantity</span><strong>@item.Total.ToString("N0") ₫</strong></div> }
+<hr/><div class="shop-grand"><span>Tổng tiền</span><strong>@Model.Cart.Total.ToString("N0") ₫</strong></div></aside></div>

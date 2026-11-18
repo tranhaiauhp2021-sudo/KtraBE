@@ -1,0 +1,34 @@
+﻿@model KtraBE.Models.ShopProductVM
+@{ ViewBag.Title = Model.Product.ProductName; }
+<a class="shop-back" href="@Url.Action("Index","Home")">← Trở lại cửa hàng</a>
+<div class="shop-detail">
+    <div class="shop-detail-visual">
+        <img alt="Ảnh chụp minh họa @Model.Product.ProductName"
+             src="@Url.Content(KtraBE.Models.RealProductPhoto.GetUrl(Model.Product.ProductID, Model.Product.ProductImage))" />
+    </div>
+    <div class="shop-detail-info">
+        <span class="shop-tag">@(Model.Product.Category == null ? "SẢN PHẨM" : Model.Product.Category.CategoryName.ToUpper())</span>
+        <h1>@Model.Product.ProductName</h1>
+        <div class="shop-detail-price">@Model.Product.ProductPrice.ToString("N0") ₫</div>
+        <p>@Model.Product.ProductDecription</p>
+        <div class="shop-detail-facts"><span>✓ Đặt hàng an toàn</span><span>✓ Giao tận nơi</span></div>
+        @using (Html.BeginForm("Add","Cart",FormMethod.Post,new { @class="shop-buy" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="productId" value="@Model.Product.ProductID" />
+            <label>Số lượng <input type="number" name="quantity" min="1" max="50" value="1" /></label>
+            <button class="shop-btn shop-btn-dark" type="submit">🛒 Thêm vào giỏ hàng</button>
+        }
+    </div>
+</div>
+@if (Model.Related.Count > 0)
+{
+    <h2 class="shop-title-gap">Sản phẩm cùng danh mục</h2>
+    <div class="shop-products shop-related">
+    @foreach (var p in Model.Related)
+    {
+        <article class="shop-product-card"><a class="shop-product-image" href="@Url.Action("Details","Home",new { id=p.ProductID })"><img loading="lazy" alt="Ảnh chụp minh họa @p.ProductName" src="@Url.Content(KtraBE.Models.RealProductPhoto.GetUrl(p.ProductID,p.ProductImage))" /></a>
+        <div class="shop-card-body"><a class="shop-card-title" href="@Url.Action("Details","Home",new { id=p.ProductID })">@p.ProductName</a><strong>@p.ProductPrice.ToString("N0") ₫</strong></div></article>
+    }
+    </div>
+}

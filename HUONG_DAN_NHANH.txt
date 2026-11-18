@@ -1,0 +1,8 @@
+﻿FASTOR — Ảnh chụp thật, không dùng ảnh AI; đã bỏ chữ ASP trên giao diện.
+1. Mở KtraBE.sln > F5.
+2. Website tự tải ảnh thật từ Unsplash nếu máy có Internet.
+3. Muốn lưu ảnh để không cần Internet: nhấp đúp TAI_ANH_VE_MAY.cmd rồi đợi tải.
+4. Dùng lại database MyStore_BE_Ktra cũ, KHÔNG chạy lại SQL.
+5. Khi nộp nếu đã tải ảnh offline: nén thư mục project này lại (không nộp bản cũ).
+
+Admin: username admin / password Admin@2026 (đã có từ SQL mẫu).

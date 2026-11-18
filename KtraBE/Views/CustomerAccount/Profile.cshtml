@@ -1,0 +1,3 @@
+﻿@model KtraBE.Models.Customer
+@{ ViewBag.Title = "Thông tin tài khoản"; }
+<div class="shop-form-wrap"><span class="shop-tag">MY ACCOUNT</span><h1>Thông tin tài khoản</h1><div class="shop-profile"><p><b>Họ tên:</b> @Model.CustomerName</p><p><b>Tên đăng nhập:</b> @Model.Username</p><p><b>Số điện thoại:</b> @Model.CustomerPhone</p><p><b>Email:</b> @Model.CustomerEmail</p><p><b>Địa chỉ:</b> @Model.CustomerAddress</p></div><a class="shop-btn shop-btn-dark" href="@Url.Action("OrderHistory","CustomerOrder")">Xem đơn hàng của tôi</a></div>

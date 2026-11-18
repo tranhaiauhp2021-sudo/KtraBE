@@ -1,0 +1,55 @@
+﻿@using System.Linq
+@using KtraBE.Models
+@{
+    var shopCart = Session["ShopCart"] as List<ShopCartItem>;
+    var cartCount = shopCart == null ? 0 : shopCart.Sum(x => x.Quantity);
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title – FASTOR Store</title>
+    <link href="@Url.Content("~/Content/shop.css")" rel="stylesheet" />
+</head>
+<body class="shop-body">
+    <div class="shop-announcement">🚚 Giao hàng toàn quốc · Hỗ trợ khách hàng nhanh chóng · Hàng mới mỗi tuần</div>
+    <header class="shop-header">
+        <div class="shop-nav">
+            <a href="@Url.Action("Index","Home",new { area = "" })" class="shop-logo">FASTOR<span>●</span><small> STORE</small></a>
+            <nav class="shop-menu">
+                <a href="@Url.Action("Index","Home",new { area = "" })">Trang chủ</a>
+                <a href="@Url.Action("Index","Home",new { area = "" })#sanpham">Sản phẩm</a>
+                <a href="@Url.Action("Index","Cart",new { area = "" })">Giỏ hàng (@cartCount)</a>
+                @if (Request.IsAuthenticated)
+                {
+                    <a href="@Url.Action("OrderHistory","CustomerOrder",new { area = "" })">Đơn hàng của tôi</a>
+                    <a href="@Url.Action("Profile","CustomerAccount",new { area = "" })">Tài khoản</a>
+                    <span class="shop-username">@User.Identity.Name</span>
+                    using (Html.BeginForm("Logout","CustomerAccount",new { area = "" },FormMethod.Post,new { @class="shop-logout" }))
+                    {
+                        @Html.AntiForgeryToken()<button type="submit">Đăng xuất</button>
+                    }
+                }
+                else
+                {
+                    <a href="@Url.Action("Login","CustomerAccount",new { area = "" })">Đăng nhập</a>
+                    <a class="shop-register" href="@Url.Action("Register","CustomerAccount",new { area = "" })">Đăng ký</a>
+                }
+            </nav>
+        </div>
+    </header>
+    <main class="shop-container">
+        @if (TempData["ShopSuccess"] != null)
+        {
+            <div class="shop-alert">@TempData["ShopSuccess"]</div>
+        }
+        @RenderBody()
+    </main>
+    <footer class="shop-footer">
+        <div><strong>FASTOR ●</strong><p>Sách, văn phòng phẩm và phụ kiện – mua sắm dễ dàng, nhanh chóng.</p></div>
+        <div>Chất lượng mỗi ngày · Giao hàng tận nơi</div>
+        <div><a href="@Url.Action("Login","Account",new { area="" })">Trang quản trị Admin</a></div>
+    </footer>
+</body>
+</html>

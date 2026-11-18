@@ -1,0 +1,24 @@
+﻿@model KtraBE.Models.ShopCartVM
+@{ ViewBag.Title = "Giỏ hàng"; }
+<div class="shop-page-title"><span class="shop-tag">YOUR CART</span><h1>Giỏ hàng của bạn</h1><p>@Model.Count sản phẩm đã chọn</p></div>
+@if (Model.Items.Count == 0)
+{
+    <div class="shop-empty"><div style="font-size:65px">🛒</div><h3>Giỏ hàng đang trống</h3><p>Khám phá những món đồ thú vị trong cửa hàng nhé!</p><a class="shop-btn shop-btn-dark" href="@Url.Action("Index","Home")">Tiếp tục mua sắm</a></div>
+}
+else
+{
+    <div class="shop-cart-layout"><div class="shop-cart-list">
+    @foreach (var item in Model.Items)
+    {
+        <div class="shop-cart-row"><div class="shop-cart-thumb"><img src="@Url.Content(KtraBE.Models.RealProductPhoto.GetUrl(item.ProductID,item.ProductImage))" alt="@item.ProductName" /></div>
+            <div><a class="shop-cart-name" href="@Url.Action("Details","Home",new { id=item.ProductID })">@item.ProductName</a><p>@item.ProductPrice.ToString("N0") ₫ / sản phẩm</p></div>
+            <div>
+                @using (Html.BeginForm("Update","Cart",FormMethod.Post,new { @class="shop-quantity" }))
+                { @Html.AntiForgeryToken()<input name="productId" value="@item.ProductID" type="hidden"/><input name="quantity" value="@item.Quantity" min="1" max="50" type="number"/><button type="submit">Cập nhật</button> }
+                @using (Html.BeginForm("Remove","Cart",FormMethod.Post))
+                { @Html.AntiForgeryToken()<input name="productId" value="@item.ProductID" type="hidden"/><button class="shop-link-red" type="submit">Xóa</button> }
+            </div><strong>@item.Total.ToString("N0") ₫</strong>
+        </div>
+    }
+    </div><aside class="shop-summary"><h3>Tóm tắt đơn hàng</h3><div><span>Số lượng</span><strong>@Model.Count</strong></div><div><span>Tạm tính</span><strong>@Model.Total.ToString("N0") ₫</strong></div><hr/><div class="shop-grand"><span>Tổng cộng</span><strong>@Model.Total.ToString("N0") ₫</strong></div><a class="shop-btn shop-btn-dark" href="@Url.Action("Checkout","CustomerOrder")">Tiến hành đặt hàng →</a><a class="shop-link" href="@Url.Action("Index","Home")">← Tiếp tục mua hàng</a></aside></div>
+}
